@@ -172,6 +172,86 @@
       .catch(function (e) { say('删除失败：' + esc(e.message), 'err'); });
   }
 
+  /* ---------- 图片：压缩 + 上传到仓库 images/ ---------- */
+  var IMG_MAX_W = 1600;
+
+  function compress(file) {
+    // 小图直接传，大图压到 1600px 宽、JPEG 0.9
+    if (file.size < 200 * 1024 && /png$/i.test(file.type)) return Promise.resolve(file);
+    return new Promise(function (resolve) {
+      var img = new Image();
+      var url = URL.createObjectURL(file);
+      img.onload = function () {
+        var w = img.width, h = img.height;
+        if (w > IMG_MAX_W) { h = Math.round(h * IMG_MAX_W / w); w = IMG_MAX_W; }
+        var c = document.createElement('canvas');
+        c.width = w; c.height = h;
+        var ctx = c.getContext('2d');
+        ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h);   // 白底，避免透明区变黑
+        ctx.drawImage(img, 0, 0, w, h);
+        URL.revokeObjectURL(url);
+        c.toBlob(function (b) { resolve(b || file); }, 'image/jpeg', 0.9);
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); resolve(file); };
+      img.src = url;
+    });
+  }
+
+  function blobToB64(blob) {
+    return new Promise(function (res, rej) {
+      var r = new FileReader();
+      r.onload = function () { res(String(r.result).split(',')[1]); };
+      r.onerror = rej;
+      r.readAsDataURL(blob);
+    });
+  }
+
+  function insertPlaceholder() {
+    var ed = $('editor');
+    ed.focus();
+    var id = 'imgup-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6);
+    document.execCommand('insertHTML', false,
+      '<span id="' + id + '" class="img-loading">图片上传中…</span>');
+    return id;
+  }
+
+  function replacePlaceholder(id, html) {
+    var el = document.getElementById(id);
+    if (el) { el.outerHTML = html; return; }
+    $('editor').focus();
+    document.execCommand('insertHTML', false, html);
+  }
+
+  function handleImage(file) {
+    if (!file || !/^image\//.test(file.type)) return;
+    var ph = insertPlaceholder();
+    say('图片处理中…');
+    compress(file).then(function (blob) {
+      var ext = (blob.type === 'image/png') ? 'png' : 'jpg';
+      var name = 'img-' + new Date().toISOString().slice(0, 10).replace(/-/g, '') + '-' +
+        Math.random().toString(36).slice(2, 7) + '.' + ext;
+      if (token()) {
+        return blobToB64(blob).then(function (b64) {
+          return api('/repos/' + CFG.owner + '/' + CFG.repo + '/contents/images/' + name, {
+            method: 'PUT',
+            body: JSON.stringify({ message: 'image: ' + name, content: b64, branch: CFG.branch }),
+          });
+        }).then(function () { return 'images/' + name; });
+      }
+      // 没填 token 时退回内嵌 base64（体积大，但离线可用）
+      return blobToB64(blob).then(function (b64) {
+        return 'data:' + (blob.type || 'image/png') + ';base64,' + b64;
+      });
+    }).then(function (src) {
+      replacePlaceholder(ph, '<img src="' + src + '" alt="">');
+      var tip = token() ? '图片已上传，随文章一起发布后约 1 分钟可见' : '已内嵌图片（未连接 GitHub，体积较大）';
+      say(tip, token() ? 'ok' : 'warn');
+    }).catch(function (e) {
+      replacePlaceholder(ph, '');
+      say('图片处理失败：' + esc(e.message), 'err');
+    });
+  }
+
   /* ---------- 初始化 ---------- */
   document.addEventListener('DOMContentLoaded', function () {
     if (!document.getElementById('gh-panel')) return;
@@ -199,6 +279,25 @@
     $('btn-publish').addEventListener('click', publish);
     $('btn-delete').addEventListener('click', remove);
     $('gh-reload').addEventListener('click', loadRemote);
+
+    // 本地图片：按钮选择 + 直接 Ctrl+V 粘贴截图
+    var fileInput = $('file-img');
+    window.__uploadImage = function () { if (fileInput) fileInput.click(); };
+    if (fileInput) fileInput.addEventListener('change', function (e) {
+      handleImage(e.target.files && e.target.files[0]);
+      e.target.value = '';
+    });
+    var ed = $('editor');
+    if (ed) ed.addEventListener('paste', function (e) {
+      var items = (e.clipboardData || window.clipboardData || {}).items;
+      if (!items) return;
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].type && items[i].type.indexOf('image/') === 0) {
+          var f = items[i].getAsFile();
+          if (f) { e.preventDefault(); handleImage(f); return; }
+        }
+      }
+    });
 
     if (saved) loadRemote(); else renderList();
   });

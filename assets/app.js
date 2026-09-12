@@ -183,9 +183,14 @@ function initEditor() {
     else if (cmd === "link") {
       var url = prompt("链接地址：", "https://");
       if (url) btn("createLink", url);
-    } else if (cmd === "image") {
+    }     else if (cmd === "image") {
+      // 本地图片/截图：交给 admin.js 处理（压缩 + 上传），没加载时退回地址输入
+      if (window.__uploadImage) { window.__uploadImage(); return; }
       var src = prompt("图片地址：", "https://");
       if (src) btn("insertImage", src);
+    } else if (cmd === "netimg") {
+      var u = prompt("网络图片地址：", "https://");
+      if (u) btn("insertImage", u);
     } else if (cmd === "clear") btn("removeFormat");
     else if (val) btn(cmd, val);
     else btn(cmd);

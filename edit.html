@@ -64,12 +64,14 @@
       <button data-cmd="insertOrderedList" title="有序列表" data-page-node-id="1owOXzWYcMegtDawJW7FXL">1. 列表</button>
       <button data-cmd="formatBlock" data-val="&lt;blockquote&gt;" title="引用" data-page-node-id="C0F231FaA7Nd6FlzxTFzJF">❝ 引用</button>
       <button data-cmd="link" title="插入链接" data-page-node-id="7Q2jwgILfWpvsu6nyXKu54">🔗 链接</button>
-      <button data-cmd="image" title="插入图片" data-page-node-id="2GSZ3ATvCVXOFIAW2OfefO">🖼 图片</button>
+      <button data-cmd="image" title="上传本机图片（也可直接 Ctrl+V 粘贴截图）" data-page-node-id="2GSZ3ATvCVXOFIAW2OfefO">🖼 本机图片</button>
+      <button data-cmd="netimg" title="插入网络图片地址">🌐 网络图片</button>
       <button data-cmd="clear" title="清除格式" data-page-node-id="GfTGggtdAGBE9BiGXFCyKX">清除格式</button>
       <button data-cmd="undo" title="撤销" data-page-node-id="DWNDMuUF5Z2qNKJNNyqagK">↶</button>
       <button data-cmd="redo" title="重做" data-page-node-id="hk4RY7ydnHp6iS08r5BCjB">↷</button>
     </div>
     <div id="editor" contenteditable="true" data-page-node-id="TLLWCY1buNHtE8qfQZeznR"></div>
+    <input type="file" id="file-img" accept="image/*" hidden>
   </div>
 
   <div class="editor-actions" data-page-node-id="lDaH9n7RjFsk4tx7m5cBIA">
@@ -85,7 +87,8 @@
     <strong data-page-node-id="Nne65eeoCZ8TEEpHOUvXw3">推荐流程（网页内直接发布）：</strong><br data-page-node-id="rf6zejfhvVcDOUUFmhdJh6">
     1. 上方填一次 GitHub Token → 点「连接」，之后自动列出线上所有文章<br data-page-node-id="L4rpZKyAnBZMATxzDYUxTv">
     2. 写文章 → 点「保存并发布到线上」，内容直接提交到仓库，GitHub Pages 约 1 分钟后自动更新<br data-page-node-id="aAgF1wL48OEH9KF297SirI">
-    3. 改旧文章：在上方列表点一篇加载，改完再发布即可<br data-page-node-id="XWMCOZ0HzUD7mRWSXwm1MN"><br data-page-node-id="etDOsRhEBCoCS3kmykyAEH">
+    3. 改旧文章：在上方列表点一篇加载，改完再发布即可<br data-page-node-id="XWMCOZ0HzUD7mRWSXwm1MN">
+    4. 插图：截图后直接在正文里 <strong>Ctrl+V</strong>，或点工具栏「🖼 本机图片」选文件；图片自动压缩后上传到仓库 <code>images/</code> 目录<br data-page-node-id="etDOsRhEBCoCS3kmykyAEH">
     <strong data-page-node-id="ti2KelSUCbgjf7NSaQSVw8">备用方式（无网络时）：</strong>「存本地草稿」→「导出 posts.js」→ 手动覆盖 <code data-page-node-id="RkGPZRVrdyJf4JDUPY00CA">data/posts.js</code> → <code data-page-node-id="4JZuBiQuzfjUr90f6VLg7m">git push</code>
   </div>
 
