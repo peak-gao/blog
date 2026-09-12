@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>写文章 - 我的博客</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="site-head">
+    <div>
+      <h1 class="site-title">写文章</h1>
+      <p class="site-desc">标题 + 关键字 + 富文本正文</p>
+    </div>
+    <div class="head-actions">
+      <a class="btn" href="index.html">← 列表</a>
+    </div>
+  </header>
+
+  <div class="field">
+    <label for="f-title">标题</label>
+    <input type="text" id="f-title" placeholder="文章标题">
+  </div>
+
+  <div class="field">
+    <label for="f-tags">关键字（逗号或空格分隔）</label>
+    <input type="text" id="f-tags" placeholder="例如：随笔, 技术笔记">
+  </div>
+
+  <div class="field">
+    <label for="f-date">日期</label>
+    <input type="date" id="f-date">
+  </div>
+
+  <div class="field">
+    <label>正文</label>
+    <div class="toolbar" id="toolbar">
+      <button data-cmd="bold" title="加粗"><b>B</b></button>
+      <button data-cmd="italic" title="斜体"><i>I</i></button>
+      <button data-cmd="underline" title="下划线"><u>U</u></button>
+      <button data-cmd="strikeThrough" title="删除线"><s>S</s></button>
+      <button data-cmd="h2" title="大标题">H2</button>
+      <button data-cmd="h3" title="小标题">H3</button>
+      <button data-cmd="p" title="正文">P</button>
+      <button data-cmd="insertUnorderedList" title="无序列表">• 列表</button>
+      <button data-cmd="insertOrderedList" title="有序列表">1. 列表</button>
+      <button data-cmd="formatBlock" data-val="<blockquote>" title="引用">❝ 引用</button>
+      <button data-cmd="link" title="插入链接">🔗 链接</button>
+      <button data-cmd="image" title="插入图片">🖼 图片</button>
+      <button data-cmd="clear" title="清除格式">清除格式</button>
+      <button data-cmd="undo" title="撤销">↶</button>
+      <button data-cmd="redo" title="重做">↷</button>
+    </div>
+    <div id="editor" contenteditable="true"></div>
+  </div>
+
+  <div class="editor-actions">
+    <button class="btn primary" id="btn-save">保存到本地草稿</button>
+    <button class="btn" id="btn-export">导出 posts.js</button>
+    <button class="btn" id="btn-json">导出 JSON</button>
+    <button class="btn" id="btn-clear-local">清空本地草稿</button>
+  </div>
+
+  <div class="hint">
+    <strong>发布流程：</strong><br>
+    1. 写好文章 → 点「保存到本地草稿」（仅存浏览器，可先预览）<br>
+    2. 点「导出 posts.js」下载文件<br>
+    3. 用下载的文件覆盖 <code>data/posts.js</code><br>
+    4. <code>git add . &amp;&amp; git commit -m "new post" &amp;&amp; git push</code><br>
+    5. 去 Gitee 仓库 → 服务 → Gitee Pages → 点「更新」重新部署
+  </div>
+
+  <footer class="site-foot">Powered by 静态 HTML · 托管于 Gitee Pages</footer>
+</div>
+<script src="data/posts.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
