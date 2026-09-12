@@ -7,9 +7,10 @@
 ```
 index.html          列表页（支持 ?tag=关键字 筛选）
 post.html           详情页（?id=文章ID）
-edit.html           写文章页（富文本编辑器 + 导出数据）
+edit.html           写文章 / 管理页（富文本编辑器 + 线上同步）
 assets/style.css     样式（自动跟随系统深浅色）
 assets/app.js        列表/详情/编辑的渲染逻辑
+assets/admin.js      网页内直连 GitHub 保存/发布
 data/posts.js        文章数据源  ← 所有文章都在这里
 ```
 
@@ -22,20 +23,19 @@ python -m http.server 8000
 # 打开 http://localhost:8000
 ```
 
-## 写文章
+## 写文章（推荐：网页内直接发布）
 
-1. 打开 `edit.html`，填标题、关键字（逗号/空格分隔）、正文（支持加粗、标题、列表、引用、代码块、链接、图片）
-2. 点「保存到本地草稿」→ 可先在列表页预览
-3. 点「导出 posts.js」下载文件
-4. 覆盖 `data/posts.js`，然后提交推送：
+1. 打开 `edit.html`，第一次填入 GitHub Token（勾选 `repo` 权限）→ 点「连接」
+   - Token 只存在当前浏览器的 localStorage，不会上传到任何地方
+2. 上方会自动列出线上所有文章，点任意一篇可加载修改
+3. 写好后点「保存并发布到线上」→ 内容直接提交到 `data/posts.js`，GitHub Pages 约 1 分钟后生效
+4. 删除：加载某篇后点「删除这篇」
 
-```bash
-git add .
-git commit -m "new post"
-git push
-```
+整个过程不需要本地 git、不需要命令行。
 
-5. Gitee 仓库 → 服务 → Gitee Pages → 点「更新」重新部署
+### 备用方式（离线）
+
+「存本地草稿」→「导出 posts.js」→ 手动覆盖 `data/posts.js` → `git push`
 
 ## 部署
 
