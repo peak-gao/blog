@@ -222,8 +222,20 @@
     document.execCommand('insertHTML', false, html);
   }
 
+  function handleFiles(list) {
+    var files = Array.prototype.slice.call(list || []).filter(function (f) {
+      return f && /^image\//.test(f.type);
+    });
+    if (!files.length) { say('请选择图片文件', 'warn'); return; }
+    var chain = Promise.resolve();
+    files.forEach(function (f) { chain = chain.then(function () { return handleImage(f); }); });
+    chain.then(function () {
+      say('已插入 ' + files.length + ' 张图片' + (token() ? '，发布后约 1 分钟可见' : '（未连接 GitHub，内嵌在正文里）'), token() ? 'ok' : 'warn');
+    });
+  }
+
   function handleImage(file) {
-    if (!file || !/^image\//.test(file.type)) return;
+    if (!file || !/^image\//.test(file.type)) return Promise.resolve();
     var ph = insertPlaceholder();
     say('图片处理中…');
     compress(file).then(function (blob) {
@@ -244,8 +256,6 @@
       });
     }).then(function (src) {
       replacePlaceholder(ph, '<img src="' + src + '" alt="">');
-      var tip = token() ? '图片已上传，随文章一起发布后约 1 分钟可见' : '已内嵌图片（未连接 GitHub，体积较大）';
-      say(tip, token() ? 'ok' : 'warn');
     }).catch(function (e) {
       replacePlaceholder(ph, '');
       say('图片处理失败：' + esc(e.message), 'err');
@@ -280,21 +290,41 @@
     $('btn-delete').addEventListener('click', remove);
     $('gh-reload').addEventListener('click', loadRemote);
 
-    // 本地图片：按钮选择 + 直接 Ctrl+V 粘贴截图
+    // 本机图片：按钮选择 / 拖拽 / 直接 Ctrl+V 粘贴截图（手机上是相册或拍照）
     var fileInput = $('file-img');
-    window.__uploadImage = function () { if (fileInput) fileInput.click(); };
+    var pick = function () { if (fileInput) fileInput.click(); };
+    window.__uploadImage = pick;
     if (fileInput) fileInput.addEventListener('change', function (e) {
-      handleImage(e.target.files && e.target.files[0]);
+      handleFiles(e.target.files);
       e.target.value = '';
     });
+
+    var dz = $('dropzone');
+    if (dz) dz.addEventListener('click', pick);
+
     var ed = $('editor');
+    if (ed) {
+      ['dragenter', 'dragover'].forEach(function (evt) {
+        ed.addEventListener(evt, function (e) { e.preventDefault(); ed.classList.add('dragover'); });
+      });
+      ['dragleave', 'dragend'].forEach(function (evt) {
+        ed.addEventListener(evt, function () { ed.classList.remove('dragover'); });
+      });
+      ed.addEventListener('drop', function (e) {
+        e.preventDefault();
+        ed.classList.remove('dragover');
+        var dt = e.dataTransfer;
+        if (dt && dt.files && dt.files.length) { ed.focus(); handleFiles(dt.files); }
+      });
+    }
+
     if (ed) ed.addEventListener('paste', function (e) {
       var items = (e.clipboardData || window.clipboardData || {}).items;
       if (!items) return;
       for (var i = 0; i < items.length; i++) {
         if (items[i].type && items[i].type.indexOf('image/') === 0) {
           var f = items[i].getAsFile();
-          if (f) { e.preventDefault(); handleImage(f); return; }
+          if (f) { e.preventDefault(); handleFiles([f]); return; }
         }
       }
     });
