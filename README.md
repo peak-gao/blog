@@ -37,11 +37,23 @@ git push
 
 5. Gitee 仓库 → 服务 → Gitee Pages → 点「更新」重新部署
 
-## 部署到 Gitee Pages
+## 部署
 
-- 仓库：https://gitee.com/peakgao/blog （已设为公开）
-- 远端：`git@gitee.com:peakgao/blog.git` / `https://gitee.com/peakgao/blog.git`
-- Pages 地址：https://peakgao.gitee.io/blog
+### GitHub Pages（主站，自动部署）
 
-首次开启：仓库 → 服务 → Gitee Pages → 分支选 `master`、部署目录留空 → 部署（需实名认证）。
-之后每次推送新文章，去同一页面点「更新」重新部署即可。
+- 仓库：https://github.com/peak-gao/blog
+- **访问地址：https://peak-gao.github.io/blog/**
+- 来源：`main` 分支根目录，push 完自动重新构建，不用手动点任何按钮
+
+```bash
+git push origin main
+```
+
+### Gitee（仅代码备份）
+
+- 仓库：https://gitee.com/peakgao/blog
+- 该账号未开通 Gitee Pages（服务页无入口），只做异地备份
+
+```bash
+git push gitee main
+```
