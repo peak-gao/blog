@@ -1,7 +1,6 @@
 /**
  * 文章数据源（纯静态，无后端）
  * 每篇文章：{ id, title, tags[], date, content(富文本 HTML) }
- * 用 edit.html 写好后导出本文件，覆盖这里再提交即可上线。
  */
 window.__POSTS__ = [
   {
@@ -12,6 +11,15 @@ window.__POSTS__ = [
     ],
     "date": "2026-09-12",
     "content": "<p>道理都只存在于人的心中</p>"
+  },
+  {
+    "id": "20260912-54mcg",
+    "title": "网页内保存测试",
+    "tags": [
+      "测试"
+    ],
+    "date": "2026-09-12",
+    "content": "&lt;p&gt;这是通过网页直接保存到 GitHub 的测试内容。&lt;/p&gt;"
   },
   {
     "id": "2026-09-12-tags",
