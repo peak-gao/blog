@@ -39,5 +39,9 @@ git push
 
 ## 部署到 Gitee Pages
 
-仓库需设为**公开**，并实名认证。首次在 仓库 → 服务 → Gitee Pages 选择分支（master/main）、目录（/）部署。
-访问地址：`https://<用户名>.gitee.io/<仓库名>`
+- 仓库：https://gitee.com/peakgao/blog （已设为公开）
+- 远端：`git@gitee.com:peakgao/blog.git` / `https://gitee.com/peakgao/blog.git`
+- Pages 地址：https://peakgao.gitee.io/blog
+
+首次开启：仓库 → 服务 → Gitee Pages → 分支选 `master`、部署目录留空 → 部署（需实名认证）。
+之后每次推送新文章，去同一页面点「更新」重新部署即可。
