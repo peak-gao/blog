@@ -161,3 +161,41 @@ a:hover { text-decoration: underline; }
 .hint code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
 
 .site-foot { margin-top: 40px; font-size: 12px; color: var(--muted); text-align: center; }
+
+/* ---------- 线上同步面板 ---------- */
+.card {
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 16px 18px; margin-bottom: 24px;
+}
+.gh-head { display: flex; align-items: center; justify-content: space-between; font-size: 14px; margin-bottom: 10px; }
+.gh-head span { color: var(--muted); font-size: 13px; }
+.gh-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.gh-row input {
+  flex: 1 1 240px; padding: 8px 12px; font-size: 14px; font-family: inherit;
+  border: 1px solid var(--line); border-radius: 8px; background: var(--card); color: var(--text);
+}
+.gh-row input:focus { outline: none; border-color: var(--accent); }
+.gh-label { font-size: 12px; color: var(--muted); margin: 14px 0 8px; }
+.gh-list { display: flex; flex-direction: column; gap: 6px; max-height: 220px; overflow: auto; }
+.gh-item {
+  display: flex; justify-content: space-between; gap: 12px; padding: 8px 12px;
+  border: 1px solid var(--line); border-radius: 8px; font-size: 14px;
+  color: var(--text); background: var(--bg);
+}
+.gh-item:hover { border-color: var(--accent); text-decoration: none; }
+.gh-item.active { border-color: var(--accent); background: var(--accent-soft); }
+.gh-item-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gh-item-date { color: var(--muted); font-size: 12px; flex-shrink: 0; }
+.gh-empty { font-size: 13px; color: var(--muted); }
+
+.gh-msg { margin-top: 12px; font-size: 13px; line-height: 1.7; }
+.gh-msg:empty { display: none; }
+.gh-msg.ok { color: #1a7f37; }
+.gh-msg.err { color: #c9372c; }
+.gh-msg.warn { color: #9a6700; }
+@media (prefers-color-scheme: dark) {
+  .gh-msg.ok { color: #4ac26b; }
+  .gh-msg.err { color: #ff7b72; }
+  .gh-msg.warn { color: #e3b341; }
+}
+.btn.danger:hover { border-color: #c9372c; color: #c9372c; }

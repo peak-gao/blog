@@ -1,80 +1,98 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="zh-CN" data-page-node-id="AJb3vH1LqUoikJcXxkVm0t">
+<head data-page-node-id="qr0wn4UnxidgkKzo6l8r2A">
+<meta charset="UTF-8" data-page-node-id="LppgdJZ0DuXC70buL5NtI6">
+<meta name="viewport" content="width=device-width, initial-scale=1" data-page-node-id="8UdwIXkHjPcbDPsdLr6uEj">
 <title>写文章 - 我的博客</title>
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/style.css" data-page-node-id="ydT84AI9Mg8HPYuDq0weCG">
 </head>
-<body>
-<div class="wrap">
+<body data-page-node-id="5vi7g9qBaKmRTxWU70ORKr">
+<div class="wrap" data-page-node-id="gpobFpyl0eh4qrRddpxuvj">
 
-  <header class="site-head">
-    <div>
-      <h1 class="site-title">写文章</h1>
-      <p class="site-desc">标题 + 关键字 + 富文本正文</p>
+  <header class="site-head" data-page-node-id="Pot3kmszw8yGBNzVBpcBGh">
+    <div data-page-node-id="7I2OiUKkhxzQ85wwp7czJm">
+      <h1 class="site-title" data-page-node-id="NlKsG7NhqSmWq68uJhcdwu">写文章</h1>
+      <p class="site-desc" data-page-node-id="BbnW7OCBH2VAHE0oTWAdIK">标题 + 关键字 + 富文本正文</p>
     </div>
-    <div class="head-actions">
-      <a class="btn" href="index.html">← 列表</a>
+    <div class="head-actions" data-page-node-id="B8uWPl3l2clpQjL8nnDXzS">
+      <a class="btn" href="index.html" data-page-node-id="DrutRBBzzTmJnHeyPXxXd6">← 列表</a>
     </div>
   </header>
 
-  <div class="field">
-    <label for="f-title">标题</label>
-    <input type="text" id="f-title" placeholder="文章标题">
-  </div>
-
-  <div class="field">
-    <label for="f-tags">关键字（逗号或空格分隔）</label>
-    <input type="text" id="f-tags" placeholder="例如：随笔, 技术笔记">
-  </div>
-
-  <div class="field">
-    <label for="f-date">日期</label>
-    <input type="date" id="f-date">
-  </div>
-
-  <div class="field">
-    <label>正文</label>
-    <div class="toolbar" id="toolbar">
-      <button data-cmd="bold" title="加粗"><b>B</b></button>
-      <button data-cmd="italic" title="斜体"><i>I</i></button>
-      <button data-cmd="underline" title="下划线"><u>U</u></button>
-      <button data-cmd="strikeThrough" title="删除线"><s>S</s></button>
-      <button data-cmd="h2" title="大标题">H2</button>
-      <button data-cmd="h3" title="小标题">H3</button>
-      <button data-cmd="p" title="正文">P</button>
-      <button data-cmd="insertUnorderedList" title="无序列表">• 列表</button>
-      <button data-cmd="insertOrderedList" title="有序列表">1. 列表</button>
-      <button data-cmd="formatBlock" data-val="<blockquote>" title="引用">❝ 引用</button>
-      <button data-cmd="link" title="插入链接">🔗 链接</button>
-      <button data-cmd="image" title="插入图片">🖼 图片</button>
-      <button data-cmd="clear" title="清除格式">清除格式</button>
-      <button data-cmd="undo" title="撤销">↶</button>
-      <button data-cmd="redo" title="重做">↷</button>
+  <div class="card" id="gh-panel" data-page-node-id="4RmWiXcSOgUvf9VCWOsgF5">
+    <div class="gh-head" data-page-node-id="9eP8CjZHyGh5As1UoKm3Iw">
+      <strong data-page-node-id="puNLQFXuiPyYLwEBxuoO74">线上同步（GitHub）</strong>
+      <span id="gh-state" data-page-node-id="5Gd4ULR5PxGfVqF2e6CZpL">未连接</span>
     </div>
-    <div id="editor" contenteditable="true"></div>
+    <div class="gh-row" data-page-node-id="DwjE959UF1yHsEFZ8UKdlT">
+      <input type="password" id="gh-token" placeholder="GitHub Token（需勾选 repo 权限），只存在你本机浏览器" data-page-node-id="QFsA0wU7qA5ppdGD7zVZ39">
+      <button class="btn" id="gh-connect" data-page-node-id="NpGmeWweT49ODy7r0Jqnzq">连接</button>
+      <button class="btn" id="gh-clear" data-page-node-id="r9mcSvd5kF0LLuza8qqibB">清除</button>
+      <button class="btn" id="gh-reload" data-page-node-id="1klAebFOuCFjZBNlL7qDfW">刷新</button>
+    </div>
+    <div class="gh-label" data-page-node-id="orqqgZheYTrgGXdmb4Vuug">线上文章（点一篇加载编辑）</div>
+    <div id="gh-list" class="gh-list" data-page-node-id="pJ4CvllfZEWbb3nxsYRL58"></div>
+    <div id="gh-msg" class="gh-msg" data-page-node-id="FpvH1dlbJq3yqrV4WZMQ4O"></div>
   </div>
 
-  <div class="editor-actions">
-    <button class="btn primary" id="btn-save">保存到本地草稿</button>
-    <button class="btn" id="btn-export">导出 posts.js</button>
-    <button class="btn" id="btn-json">导出 JSON</button>
-    <button class="btn" id="btn-clear-local">清空本地草稿</button>
+  <div class="field" data-page-node-id="SudT32jXEIfhMtE9lsqIom">
+    <label for="f-title" data-page-node-id="nVIaBfDthpnipL3FjIe3V1">标题</label>
+    <input type="text" id="f-title" placeholder="文章标题" data-page-node-id="u1xBNU3Y0rgdBDIzpGF8j6">
   </div>
 
-  <div class="hint">
-    <strong>发布流程：</strong><br>
-    1. 写好文章 → 点「保存到本地草稿」（仅存浏览器，可先预览）<br>
-    2. 点「导出 posts.js」下载文件<br>
-    3. 用下载的文件覆盖 <code>data/posts.js</code><br>
-    4. <code>git add . &amp;&amp; git commit -m "new post" &amp;&amp; git push</code><br>
-    5. 去 Gitee 仓库 → 服务 → Gitee Pages → 点「更新」重新部署
+  <div class="field" data-page-node-id="y1Eq3g3BAjjAnIA1KqDKmA">
+    <label for="f-tags" data-page-node-id="nwsDAadVu07Nl2EpqBX376">关键字（逗号或空格分隔）</label>
+    <input type="text" id="f-tags" placeholder="例如：随笔, 技术笔记" data-page-node-id="dz01pCGPchNx1Xwm0V4U2z">
   </div>
 
-  <footer class="site-foot">Powered by 静态 HTML · 托管于 Gitee Pages</footer>
+  <div class="field" data-page-node-id="mEDxWOXGNmE4pEXytBr3uL">
+    <label for="f-date" data-page-node-id="VxFisSP7fHz8ffpxEWkyF7">日期</label>
+    <input type="date" id="f-date" data-page-node-id="yfG8ABCheAxogAg0IsALlV">
+  </div>
+
+  <div class="field" data-page-node-id="CJbRDJurKLx1EZeltFlIAv">
+    <label data-page-node-id="aqKG9legGPYB1tQnVepmQF">正文</label>
+    <div class="toolbar" id="toolbar" data-page-node-id="CEsjuTTxJmLF5quIcumCzt">
+      <button data-cmd="bold" title="加粗" data-page-node-id="FrVhdCzzWMUEIBRSR5uLHQ"><b data-page-node-id="NmVc8vO1WWiEWUanse4wbJ">B</b></button>
+      <button data-cmd="italic" title="斜体" data-page-node-id="2B3vpyuhfw34Kn3AImAW25"><i data-page-node-id="2MhsPvlY9y3p2zKCSwfw26">I</i></button>
+      <button data-cmd="underline" title="下划线" data-page-node-id="tKOs1dPWmg6m9HC6YrgN0V"><u data-page-node-id="2teWDVgMACY1JtrOLpHhhr">U</u></button>
+      <button data-cmd="strikeThrough" title="删除线" data-page-node-id="HL9GhsEXCLCYDb8FClcA7p"><s data-page-node-id="M1gCuSFyhgzYLlGnfzM37M">S</s></button>
+      <button data-cmd="h2" title="大标题" data-page-node-id="wJwqVBfbvHpunzWPLU2WKN">H2</button>
+      <button data-cmd="h3" title="小标题" data-page-node-id="1RRg94Fy9BwjxyseNBck62">H3</button>
+      <button data-cmd="p" title="正文" data-page-node-id="IJ9OcnPmKCBczAzdgWcDWG">P</button>
+      <button data-cmd="insertUnorderedList" title="无序列表" data-page-node-id="fKP8blWagUHbG545hrCBH3">• 列表</button>
+      <button data-cmd="insertOrderedList" title="有序列表" data-page-node-id="1owOXzWYcMegtDawJW7FXL">1. 列表</button>
+      <button data-cmd="formatBlock" data-val="&lt;blockquote&gt;" title="引用" data-page-node-id="C0F231FaA7Nd6FlzxTFzJF">❝ 引用</button>
+      <button data-cmd="link" title="插入链接" data-page-node-id="7Q2jwgILfWpvsu6nyXKu54">🔗 链接</button>
+      <button data-cmd="image" title="插入图片" data-page-node-id="2GSZ3ATvCVXOFIAW2OfefO">🖼 图片</button>
+      <button data-cmd="clear" title="清除格式" data-page-node-id="GfTGggtdAGBE9BiGXFCyKX">清除格式</button>
+      <button data-cmd="undo" title="撤销" data-page-node-id="DWNDMuUF5Z2qNKJNNyqagK">↶</button>
+      <button data-cmd="redo" title="重做" data-page-node-id="hk4RY7ydnHp6iS08r5BCjB">↷</button>
+    </div>
+    <div id="editor" contenteditable="true" data-page-node-id="TLLWCY1buNHtE8qfQZeznR"></div>
+  </div>
+
+  <div class="editor-actions" data-page-node-id="lDaH9n7RjFsk4tx7m5cBIA">
+    <button class="btn primary" id="btn-publish" data-page-node-id="n0ntUC3hcJaNO3GsSgENHi">保存并发布到线上</button>
+    <button class="btn" id="btn-save" data-page-node-id="843WtiC8zyjlLW1Vnq6wWK">存本地草稿</button>
+    <button class="btn" id="btn-export" data-page-node-id="0mM2jY0CRNjg08o9LZIz5g">导出 posts.js</button>
+    <button class="btn" id="btn-json" data-page-node-id="jMMlUCmrd0epXHVw4GQIQl">导出 JSON</button>
+    <button class="btn danger" id="btn-delete" data-page-node-id="gs9F6m1YUVhCrpiDOZ23oF">删除这篇</button>
+    <button class="btn" id="btn-clear-local" data-page-node-id="z9HUvPiHcbW0Pf9THEHRBY">清空本地草稿</button>
+  </div>
+
+  <div class="hint" data-page-node-id="erJlBqI6hD5KnimCJPWyjR">
+    <strong data-page-node-id="Nne65eeoCZ8TEEpHOUvXw3">推荐流程（网页内直接发布）：</strong><br data-page-node-id="rf6zejfhvVcDOUUFmhdJh6">
+    1. 上方填一次 GitHub Token → 点「连接」，之后自动列出线上所有文章<br data-page-node-id="L4rpZKyAnBZMATxzDYUxTv">
+    2. 写文章 → 点「保存并发布到线上」，内容直接提交到仓库，GitHub Pages 约 1 分钟后自动更新<br data-page-node-id="aAgF1wL48OEH9KF297SirI">
+    3. 改旧文章：在上方列表点一篇加载，改完再发布即可<br data-page-node-id="XWMCOZ0HzUD7mRWSXwm1MN"><br data-page-node-id="etDOsRhEBCoCS3kmykyAEH">
+    <strong data-page-node-id="ti2KelSUCbgjf7NSaQSVw8">备用方式（无网络时）：</strong>「存本地草稿」→「导出 posts.js」→ 手动覆盖 <code data-page-node-id="RkGPZRVrdyJf4JDUPY00CA">data/posts.js</code> → <code data-page-node-id="4JZuBiQuzfjUr90f6VLg7m">git push</code>
+  </div>
+
+  <footer class="site-foot" data-page-node-id="t5Pyq0bEnII68uHvtRWckV">Powered by 静态 HTML · 托管于 GitHub Pages</footer>
 </div>
 <script src="data/posts.js"></script>
 <script src="assets/app.js"></script>
+<script src="assets/admin.js"></script>
 </body>
 </html>

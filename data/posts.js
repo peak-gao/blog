@@ -1,6 +1,7 @@
 /**
  * 文章数据源（纯静态，无后端）
  * 每篇文章：{ id, title, tags[], date, content(富文本 HTML) }
+ * 用 edit.html 写好后导出本文件，覆盖这里再提交即可上线。
  */
 window.__POSTS__ = [
   {
