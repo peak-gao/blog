@@ -125,24 +125,26 @@
 
   function publish() {
     if (!token()) { say('请先填 GitHub Token 并点「连接」', 'warn'); return; }
-    if (!state.sha) { say('还没拉取线上数据，等一下或重新连接', 'warn'); return; }
     var post;
     try { post = collect(); } catch (e) { say(esc(e.message), 'err'); return; }
 
     var btn = $('btn-publish');
     btn.disabled = true; btn.textContent = '发布中…';
-    say('正在提交到 GitHub…');
+    say('正在同步到 GitHub…');
 
-    var posts = state.posts.slice();
-    var idx = -1;
-    posts.forEach(function (p, i) { if (p.id === post.id) idx = i; });
-    if (idx > -1) posts[idx] = post; else posts.unshift(post);
-    posts.sort(function (a, b) {
-      return String(b.date).localeCompare(String(a.date)) || String(b.id).localeCompare(String(a.id));
-    });
+    // 还没拉到线上数据时先拉一次，避免手快点了发布却提交失败
+    var ready = state.sha ? Promise.resolve() : loadRemote();
 
-    commit(posts, (idx > -1 ? 'update: ' : 'post: ') + post.title)
-      .then(function () {
+    ready.then(function () {
+      if (!state.sha) throw new Error('拉取线上数据失败，请点「刷新」重试');
+      var posts = state.posts.slice();
+      var idx = -1;
+      posts.forEach(function (p, i) { if (p.id === post.id) idx = i; });
+      if (idx > -1) posts[idx] = post; else posts.unshift(post);
+      posts.sort(function (a, b) {
+        return String(b.date).localeCompare(String(a.date)) || String(b.id).localeCompare(String(a.id));
+      });
+      return commit(posts, (idx > -1 ? 'update: ' : 'post: ') + post.title).then(function () {
         state.posts = posts;
         renderList();
         say('已发布：<strong>' + esc(post.title) + '</strong><br>' +
@@ -153,7 +155,8 @@
           history.replaceState(null, '', 'edit.html?id=' + encodeURIComponent(post.id));
           renderList();
         }
-      })
+      });
+    })
       .catch(function (e) { say('发布失败：' + esc(e.message), 'err'); })
       .then(function () { btn.disabled = false; btn.textContent = '保存并发布到线上'; });
   }
