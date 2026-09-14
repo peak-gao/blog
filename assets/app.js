@@ -121,7 +121,10 @@ function renderList() {
       '<h2 class="post-title"><a href="' + postLink(p.id) + '">' + esc(p.title || "无标题") + "</a></h2>" +
       '<div class="post-meta">' + esc(p.date || "") + "</div>" +
       '<p class="post-summary">' + esc(summarize(p.content, 120)) + "</p>" +
-      '<div class="post-tags">' + tags + "</div>" +
+      '<div class="post-tags">' + tags +
+        '<a class="edit-link" href="edit.html?id=' + encodeURIComponent(p.id) +
+        '" title="编辑这篇文章">✎ 编辑</a>' +
+      "</div>" +
       "</li>";
   }).join("");
 }
@@ -154,7 +157,10 @@ function renderPost() {
   box.innerHTML =
     '<div class="article-head">' +
       '<h1 class="article-title">' + esc(post.title || "无标题") + "</h1>" +
-      '<div class="article-meta"><span>' + esc(post.date || "") + "</span>" + tags + "</div>" +
+      '<div class="article-meta"><span>' + esc(post.date || "") + "</span>" + tags +
+        '<a class="edit-link" href="edit.html?id=' + encodeURIComponent(post.id) +
+        '" title="编辑这篇文章">✎ 编辑</a>' +
+      "</div>" +
     "</div>" +
     '<div class="article-body">' + sanitize(post.content) + "</div>" +
     '<div class="article-nav">' +
