@@ -173,17 +173,39 @@ function initEditor() {
     editor.focus();
   };
 
-  document.getElementById("toolbar").addEventListener("click", function (e) {
+  var tb = document.getElementById("toolbar");
+
+  // 手机上点工具栏按钮会让编辑区失焦、选区丢失，导致命令无效。
+  // 在 mousedown 阶段阻止默认行为即可保住选区（桌面端同样受益）。
+  if (tb) {
+    var keepSel = function (e) {
+      var b = e.target.closest && e.target.closest("button");
+      if (b) e.preventDefault();
+    };
+    // 只拦 mousedown：touchstart 上 preventDefault 会阻止浏览器合成 click，命令反而不执行
+    tb.addEventListener("mousedown", keepSel);
+  }
+
+  // iOS Safari 的 formatBlock 只认不带尖括号的标签名，做个兼容
+  var setBlock = function (tag) {
+    var ok = false;
+    try { ok = document.execCommand("formatBlock", false, "<" + tag + ">"); } catch (e) {}
+    if (!ok) {
+      try { document.execCommand("formatBlock", false, tag); } catch (e2) {}
+    }
+  };
+
+  tb.addEventListener("click", function (e) {
     var b = e.target.closest("button");
     if (!b) return;
     e.preventDefault();
     var cmd = b.dataset.cmd;
     var val = b.dataset.val;
-    if (cmd === "h2" || cmd === "h3" || cmd === "p") btn("formatBlock", "<" + cmd + ">");
+    if (cmd === "h2" || cmd === "h3" || cmd === "p") { setBlock(cmd); editor.focus(); }
     else if (cmd === "link") {
       var url = prompt("链接地址：", "https://");
       if (url) btn("createLink", url);
-    }     else if (cmd === "image") {
+    } else if (cmd === "image") {
       // 本地图片/截图：交给 admin.js 处理（压缩 + 上传），没加载时退回地址输入
       if (window.__uploadImage) { window.__uploadImage(); return; }
       var src = prompt("图片地址：", "https://");
