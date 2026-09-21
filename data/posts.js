@@ -13,6 +13,15 @@ window.__POSTS__ = [
     "content": "<img src=\"images/img-20260921-usv0e.jpg\" alt=\"\">https://crawshaw.io/blog/eight-more-months-of-agents<div><br></div>"
   },
   {
+    "id": "20260921-6ybjc",
+    "title": "FDE",
+    "tags": [
+      "FDE"
+    ],
+    "date": "2026-09-21",
+    "content": "<img src=\"images/img-20260921-qhssj.jpg\" alt=\"\"><img src=\"images/img-20260921-k643c.jpg\" alt=\"\">"
+  },
+  {
     "id": "20260918-o337i",
     "title": "娃",
     "tags": [
