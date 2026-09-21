@@ -4,6 +4,15 @@
  */
 window.__POSTS__ = [
   {
+    "id": "20260921-dyqd1",
+    "title": "AI 提效",
+    "tags": [
+      "AI"
+    ],
+    "date": "2026-09-21",
+    "content": "<img src=\"images/img-20260921-usv0e.jpg\" alt=\"\">https://crawshaw.io/blog/eight-more-months-of-agents<div><br></div><div><br><div><br><img src=\"images/img-20260921-9jyfn.jpg\" alt=\"\"></div></div>"
+  },
+  {
     "id": "20260918-o337i",
     "title": "娃",
     "tags": [
