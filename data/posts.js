@@ -10,7 +10,7 @@ window.__POSTS__ = [
       "AI"
     ],
     "date": "2026-09-21",
-    "content": "<img src=\"images/img-20260921-usv0e.jpg\" alt=\"\">https://crawshaw.io/blog/eight-more-months-of-agents<div><br></div>"
+    "content": "<img src=\"images/img-20260921-ud6ov.jpg\" alt=\"\"><img src=\"images/img-20260921-den8k.jpg\" alt=\"\"><img src=\"images/img-20260921-669q7.jpg\" alt=\"\"><img src=\"images/img-20260921-nkhve.jpg\" alt=\"\"><img src=\"images/img-20260921-usv0e.jpg\" alt=\"\">https://crawshaw.io/blog/eight-more-months-of-agents<div><br></div>"
   },
   {
     "id": "20260921-6ybjc",
